@@ -43,7 +43,6 @@ namespace Basics.Controllers
 
             HttpContext.SignInAsync(userPrincipal);
 
-
             return RedirectToAction("Index");
         }
 
