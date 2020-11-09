@@ -18,10 +18,21 @@ namespace IdentityExample
             services.AddDbContext<AppDbContext>(config => {
                 config.UseInMemoryDatabase("Memory");
             });
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<IdentityUser, IdentityRole>(config => {
+                config.Password.RequiredLength = 4;
+                config.Password.RequireDigit = false;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequireUppercase = false;
+
+            })
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
-            //TM
+
+            services.ConfigureApplicationCookie(config => {
+                config.Cookie.Name = "Identity.Cookie";
+                config.LoginPath = "/Home/Login";
+            });
+
             services.AddControllersWithViews();
         }
 

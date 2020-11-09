@@ -14,7 +14,9 @@ namespace IdentityExample.Controllers
     public class HomeController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
+
         private readonly SignInManager<IdentityUser> _signInManager;
+        
         public HomeController(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager)
@@ -22,20 +24,24 @@ namespace IdentityExample.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
+        
         public IActionResult Index()
         {
             return View();
         }
+
         [Authorize]
         public IActionResult Secret()
         {
             return View();
-        }        
+        }
+
         public IActionResult Login()
         {
 
             return View();
         }
+        
         [HttpPost]
         public async Task<IActionResult> Login(string username, string password )
         {
@@ -55,6 +61,7 @@ namespace IdentityExample.Controllers
         {
             return View();
         }
+        
         [HttpPost]
         public async Task<IActionResult> Register(string username, string password)
         {
@@ -75,6 +82,7 @@ namespace IdentityExample.Controllers
 
             return RedirectToAction("Index");
         }
+        
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
